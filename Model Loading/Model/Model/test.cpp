@@ -139,7 +139,7 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	Shader shader("shader1.vert", "shader1.frag");
-	Model ourModel("nanosuit/nanosuit.obj");
+	Model ourModel("../../../objects/nanosuit/nanosuit.obj");
 
 	while (!glfwWindowShouldClose(window))
 	{

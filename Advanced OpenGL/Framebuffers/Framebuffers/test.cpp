@@ -301,8 +301,8 @@ int main()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
 	glBindVertexArray(0);
 
-	GLuint cubeTexture = loadTexture("container.jpg");
-	GLuint floorTexture = loadTexture("metal.png");
+	GLuint cubeTexture = loadTexture("../../../textures/container.jpg");
+	GLuint floorTexture = loadTexture("../../../textures/metal.png");
 //#pragma endregion
 
 	GLuint framebuffer;

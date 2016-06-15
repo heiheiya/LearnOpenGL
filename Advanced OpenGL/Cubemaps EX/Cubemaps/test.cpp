@@ -280,12 +280,12 @@ int main()
 	glBindVertexArray(0);
 
 	vector<const GLchar*> faces;
-	faces.push_back("skybox1/right.jpg");
-	faces.push_back("skybox1/left.jpg");
-	faces.push_back("skybox1/top.jpg");
-	faces.push_back("skybox1/bottom.jpg");
-	faces.push_back("skybox1/back.jpg");
-	faces.push_back("skybox1/front.jpg");
+	faces.push_back("../../../textures/skybox1/right.jpg");
+	faces.push_back("../../../textures/skybox1/left.jpg");
+	faces.push_back("../../../textures/skybox1/top.jpg");
+	faces.push_back("../../../textures/skybox1/bottom.jpg");
+	faces.push_back("../../../textures/skybox1/back.jpg");
+	faces.push_back("../../../textures/skybox1/front.jpg");
 	GLuint cubemapTexture = loadCubemap(faces);
 
 	Model nanosuit("../../../objects/nanosuit_reflection/nanosuit.obj");
