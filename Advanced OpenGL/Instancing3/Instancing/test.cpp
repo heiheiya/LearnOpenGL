@@ -218,16 +218,21 @@ int main()
 
 	glEnable(GL_DEPTH_TEST);
 
-	Shader shader("shaders/geometry.vs", "shaders/geometry.frag");
+	Shader planetShader("shaders/advanced.vs", "shaders/advanced.frag");
+	Shader instanceShader("shaders/instancing.vs", "shaders/instancing.frag");
 
 	Model planet("../../../objects/planet/planet.obj");
 	Model rock("../../../objects/rock/rock.obj");
 
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 1.0f, 5000.0f);
-	shader.Use();
-	glUniformMatrix4fv(glGetUniformLocation(shader.m_program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)screenWidth / (GLfloat)screenHeight, 1.0f, 10000.0f);
+	planetShader.Use();
+	glUniformMatrix4fv(glGetUniformLocation(planetShader.m_program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-	GLuint amount = 2000;
+	instanceShader.Use();
+	glUniformMatrix4fv(glGetUniformLocation(instanceShader.m_program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+
+	GLuint amount = 200000;
 	glm::mat4* modelMatrices;
 	modelMatrices = new glm::mat4[amount];
 	srand(glfwGetTime());
@@ -240,7 +245,7 @@ int main()
 		GLfloat displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
 		GLfloat x = sin(angle) * radius + displacement;
 		displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
-		GLfloat y = displacement * 0.4f;
+		GLfloat y = -2.5f + displacement * 0.4f;
 		displacement = (rand() % (GLint)(2 * offset * 100)) / 100.0f - offset;
 		GLfloat z = cos(angle) * radius + displacement;
 		model = glm::translate(model, glm::vec3(x, y, z));
@@ -252,6 +257,34 @@ int main()
 		model = glm::rotate(model, rotAngle, glm::vec3(0.4f, 0.6f, 0.8f));
 
 		modelMatrices[i] = model;
+	}
+
+	for (GLuint i = 0; i < rock.meshes.size(); i++)
+	{
+		GLuint VAO = rock.meshes[i].VAO;
+
+		GLuint buffer;
+		glBindVertexArray(VAO);
+		glGenBuffers(1, &buffer);
+		glBindBuffer(GL_ARRAY_BUFFER, buffer);
+		glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+
+		GLsizei vec4Size = sizeof(glm::vec4);
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (GLvoid*)0);
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (GLvoid*)(vec4Size));
+		glEnableVertexAttribArray(5);
+		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (GLvoid*)(2 * vec4Size));
+		glEnableVertexAttribArray(6);
+		glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (GLvoid*)(3 * vec4Size));
+
+		glVertexAttribDivisor(3, 1);
+		glVertexAttribDivisor(4, 1);
+		glVertexAttribDivisor(5, 1);
+		glVertexAttribDivisor(6, 1);
+
+		glBindVertexArray(0);
 	}
 
 	while (!glfwWindowShouldClose(window))
@@ -266,18 +299,25 @@ int main()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		shader.Use();
-		glUniformMatrix4fv(glGetUniformLocation(shader.m_program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+		planetShader.Use();
+		glUniformMatrix4fv(glGetUniformLocation(planetShader.m_program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+		instanceShader.Use();
+		glUniformMatrix4fv(glGetUniformLocation(instanceShader.m_program, "view"), 1, GL_FALSE, glm::value_ptr(camera.GetViewMatrix()));
+		
+		planetShader.Use();
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -5.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-		glUniformMatrix4fv(glGetUniformLocation(shader.m_program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		planet.Draw(shader);
+		glUniformMatrix4fv(glGetUniformLocation(planetShader.m_program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		planet.Draw(planetShader);
 
-		for (GLuint i = 0; i < amount; i++)
+		instanceShader.Use();
+		glBindTexture(GL_TEXTURE_2D, rock.textures_loaded[0].id);
+		for (GLuint i = 0; i < rock.meshes.size(); i++)
 		{
-			glUniformMatrix4fv(glGetUniformLocation(shader.m_program, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrices[i]));
-			rock.Draw(shader);
+			glBindVertexArray(rock.meshes[i].VAO);
+			glDrawElementsInstanced(GL_TRIANGLES, rock.meshes[i].vertices.size(), GL_UNSIGNED_INT, 0, amount);
+			glBindVertexArray(0);
 		}
 
 		glfwSwapBuffers(window);
