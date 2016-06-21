@@ -33,11 +33,11 @@ GLfloat lastY = screenHeight / 2.0;
 bool firstMouse = true;
 
 GLuint woodTexture;
-GLuint planeVAO;
-GLuint quadVAO;
-GLuint quadVBO;
-GLuint cubeVAO;
-GLuint cubeVBO;
+GLuint planeVAO = 0;
+GLuint quadVAO = 0;
+GLuint quadVBO = 0;
+GLuint cubeVAO = 0;
+GLuint cubeVBO = 0;
 
 float mixRatio = 0.2;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -309,7 +309,7 @@ void RenderQuad()
 		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
 
-		glBindVertexArray(cubeVAO);
+		glBindVertexArray(quadVAO);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(1);
@@ -447,7 +447,11 @@ int main()
 	}
 
 	glDeleteVertexArrays(1, &planeVAO);
+	glDeleteVertexArrays(1, &cubeVAO);
+	glDeleteVertexArrays(1, &quadVAO);
 	glDeleteBuffers(1, &planeVBO);
+	glDeleteBuffers(1, &cubeVBO);
+	glDeleteBuffers(1, &quadVBO);
 
 	glfwTerminate();
 	return 0;
