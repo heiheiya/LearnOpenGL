@@ -64,6 +64,7 @@ void Shader::SetInteger(const GLchar* name, GLint value, GLboolean useShader /*=
 	{
 		this->Use();
 	}
+	GLuint loc = glGetUniformLocation(this->ID, name);
 	glUniform1i(glGetUniformLocation(this->ID, name), value);
 }
 
@@ -91,6 +92,7 @@ void Shader::SetVector3f(const GLchar* name, GLfloat x, GLfloat y, GLfloat z, GL
 	{
 		this->Use();
 	}
+	GLuint loc = glGetUniformLocation(this->ID, name);
 	glUniform3f(glGetUniformLocation(this->ID, name), x, y, z);
 }
 
@@ -100,6 +102,7 @@ void Shader::SetVector3f(const GLchar* name, const glm::vec3 &value, GLboolean u
 	{
 		this->Use();
 	}
+	GLuint loc = glGetUniformLocation(this->ID, name);
 	glUniform3f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
 }
 
@@ -127,6 +130,7 @@ void Shader::SetMatrix4(const GLchar* name, const glm::mat4 &matrix, GLboolean u
 	{
 		this->Use();
 	}
+	GLuint loc = glGetUniformLocation(this->ID, name);
 	glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 

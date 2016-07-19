@@ -67,6 +67,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Resource_manager.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Sprite_renderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
@@ -74,7 +75,12 @@
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Resource_manager.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\sprite.frag" />
+    <None Include="shaders\sprite.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
