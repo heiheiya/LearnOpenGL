@@ -65,6 +65,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Game_level.h" />
+    <ClInclude Include="Game_object.h" />
     <ClInclude Include="Resource_manager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite_renderer.h" />
@@ -72,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game_level.cpp" />
+    <ClCompile Include="Game_object.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Resource_manager.cpp" />
     <ClCompile Include="Shader.cpp" />
