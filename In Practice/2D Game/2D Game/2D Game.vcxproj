@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ball_object.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game_level.h" />
     <ClInclude Include="Game_object.h" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ball_object.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game_level.cpp" />
     <ClCompile Include="Game_object.cpp" />
