@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 
 #include "Game_level.h"
+#include "Game_object.h"
+#include "Ball_object.h"
 
 enum GameState
 {
@@ -27,6 +29,11 @@ public:
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
 	void Render();
+	void DoCollisions();
+
+private:
+	GLboolean CheckCollision(GameObject& one, GameObject& two);
+	GLboolean CheckCollision(BallObject& one, GameObject& two);
 
 public:
 	GameState State;

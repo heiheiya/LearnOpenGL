@@ -23,7 +23,7 @@ public:
 private:
 	void Init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight);
 
-private:
+public:
 	std::vector<GameObject> Bricks;
 };
 
