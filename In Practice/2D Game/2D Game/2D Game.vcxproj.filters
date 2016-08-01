@@ -42,6 +42,9 @@
     <ClInclude Include="Particle_generator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PostProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shader.cpp">
@@ -74,11 +77,16 @@
     <ClCompile Include="Particle_generator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PostProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\sprite.vs" />
     <None Include="shaders\sprite.frag" />
     <None Include="shaders\particle.vs" />
     <None Include="shaders\particle.frag" />
+    <None Include="shaders\post_processing.vs" />
+    <None Include="shaders\post_processing.frag" />
   </ItemGroup>
 </Project>
