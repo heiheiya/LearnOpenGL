@@ -19,8 +19,10 @@ public:
 	void Reset(glm::vec2 position, glm::vec2 velocity);
 
 public:
-	GLfloat Radius;
+	GLfloat   Radius;
 	GLboolean Stuck;
+	GLboolean Sticky;
+	GLboolean PassThrough;
 };
 
 #endif //BALL_OBJECT_H

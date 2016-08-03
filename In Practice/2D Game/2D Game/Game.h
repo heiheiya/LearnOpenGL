@@ -10,6 +10,7 @@
 #include "Game_level.h"
 #include "Game_object.h"
 #include "Ball_object.h"
+#include "Power_up.h"
 
 enum GameState
 {
@@ -47,19 +48,25 @@ public:
 	void DoCollisions();
     void ResetLevel();
     void ResetPlayer();
+	void SpawnPowerUps(GameObject& block);
+	void UpdatePowerUps(GLfloat dt);
 
 private:
 	GLboolean CheckCollision(GameObject& one, GameObject& two);
 	Collision CheckCollision(BallObject& one, GameObject& two);
     Direction VectorDirection(glm::vec2 target);
+	GLboolean ShouldSpawn(GLuint chance);
+	void ActivatePowerUp(PowerUp& powerUp);
+	GLboolean IsOtherPowerUpActive(std::vector<PowerUp> &powerUps, std::string type);
 
 public:
-	GameState State;
-	GLboolean Keys[1024];
-	GLuint    Width;
-	GLuint    Height;
+	GameState              State;
+	GLboolean              Keys[1024];
+	GLuint                 Width;
+	GLuint                 Height;
 	std::vector<GameLevel> Levels;
-	GLuint    Level;
+	GLuint                 Level;
+	std::vector<PowerUp>   PowerUps;
 };
 
 #endif //GAME_H

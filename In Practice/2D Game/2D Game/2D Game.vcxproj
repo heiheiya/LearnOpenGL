@@ -70,6 +70,7 @@
     <ClInclude Include="Game_object.h" />
     <ClInclude Include="Particle_generator.h" />
     <ClInclude Include="PostProcessor.h" />
+    <ClInclude Include="Power_up.h" />
     <ClInclude Include="Resource_manager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite_renderer.h" />
