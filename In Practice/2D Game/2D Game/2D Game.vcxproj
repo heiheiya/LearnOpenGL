@@ -75,6 +75,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite_renderer.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Text_renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball_object.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite_renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Text_renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\particle.frag" />
@@ -96,6 +98,8 @@
     <None Include="shaders\post_processing.vs" />
     <None Include="shaders\sprite.frag" />
     <None Include="shaders\sprite.vs" />
+    <None Include="shaders\text.frag" />
+    <None Include="shaders\text.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

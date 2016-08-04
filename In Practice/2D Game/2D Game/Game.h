@@ -67,6 +67,8 @@ public:
 	std::vector<GameLevel> Levels;
 	GLuint                 Level;
 	std::vector<PowerUp>   PowerUps;
+	GLuint                 Lives;
+	GLboolean              KeysProcessed[1024];
 };
 
 #endif //GAME_H
